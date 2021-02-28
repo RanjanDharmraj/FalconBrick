@@ -14,6 +14,7 @@ import io.realm.RealmList
 
 interface Repository {
     fun getAllData(): Observable<List<BlockData>>
+    fun getDataOnSearch(value: String) : Observable<List<BlockData>>
     fun saveDataIntoDB(): Completable
 }
 
@@ -27,6 +28,20 @@ class RepositoryImpl(
             realm.executeTransactionAsync(
                 {
                     val data = it.where(BlockDataObject::class.java).findAll()
+                    emitter.onNext(dbToModelObject(data))
+                },
+                { t: Throwable ->
+                    emitter.onError(t)
+                }
+            )
+        }
+    }
+
+    override fun getDataOnSearch(value: String): Observable<List<BlockData>> {
+        return Observable.create { emitter ->
+            realm.executeTransactionAsync(
+                {
+                    val data = it.where(BlockDataObject::class.java).equalTo("blockName", value).findAll()
                     emitter.onNext(dbToModelObject(data))
                 },
                 { t: Throwable ->

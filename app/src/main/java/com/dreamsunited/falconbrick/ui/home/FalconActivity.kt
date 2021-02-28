@@ -11,13 +11,13 @@ class FalconActivity : BaseActivity<ActivityFalconBinding>() {
 
     @Inject
     lateinit var viewModel: FalconViewModel
-
     override fun inflate() = ActivityFalconBinding.inflate(layoutInflater)
 
     override fun onBindingCreated() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayShowHomeEnabled(true)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         viewModel.init()
     }
 

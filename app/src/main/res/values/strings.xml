@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">FalconBrick</string>
+    <string name="add_search_term">Search</string>
+    <string name="phase">Phase</string>
+    <string name="unit">Unit A 201</string>
+    <string name="activity_name">Activity Name</string>
+    <string name="step_name">Step Name</string>
+    <string name="type_to_start_searching_for">Type to start searching for</string>
+    <string name="units_activity_status">Units, Activity, Status</string>
 </resources>
