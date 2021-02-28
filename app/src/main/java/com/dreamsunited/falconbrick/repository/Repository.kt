@@ -54,15 +54,13 @@ class RepositoryImpl(
                             _unit.activities?.forEach { _activity ->
                                 val activity =
                                     _realm.createObject(ActivityObject::class.java)
-                                activity.apply {
-                                    _activity.activityName
-                                    _activity.activityStatus
-                                    _activity.currentUserName
-                                    _activity.id
-                                    _activity.stepName
-                                    _activity.progress
-                                    _activity.wf
-                                }
+                                activity.activityName = _activity.activityName
+                                activity.activityStatus = _activity.activityStatus
+                                activity.currentUserName = _activity.currentUserName
+                                activity.id = _activity.id
+                                activity.stepName = _activity.stepName
+                                activity.progress = _activity.progress
+                                activity.wf = _activity.wf
                                 unit.activities?.add(
                                     activity
                                 )
