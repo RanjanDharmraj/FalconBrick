@@ -3,6 +3,7 @@ package com.dreamsunited.falconbrick.ui.home
 import android.view.MenuItem
 import com.dreamsunited.falconbrick.databinding.ActivityFalconBinding
 import com.dreamsunited.falconbrick.ui.BaseActivity
+import com.dreamsunited.falconbrick.ui.home.viewmodel.FalconViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

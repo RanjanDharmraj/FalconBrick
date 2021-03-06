@@ -9,12 +9,15 @@ import com.dreamsunited.falconbrick.utils.AssetManagerHelper
 import com.dreamsunited.falconbrick.utils.dbToModelObject
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.realm.Case
 import io.realm.Realm
 import io.realm.RealmList
+import io.realm.RealmQuery
+
 
 interface Repository {
     fun getAllData(): Observable<List<BlockData>>
-    fun getDataOnSearch(value: String) : Observable<List<BlockData>>
+    fun getDataOnSearch(values: List<String>): Observable<List<BlockData>>
     fun saveDataIntoDB(): Completable
 }
 
@@ -37,12 +40,22 @@ class RepositoryImpl(
         }
     }
 
-    override fun getDataOnSearch(value: String): Observable<List<BlockData>> {
+    override fun getDataOnSearch(values: List<String>): Observable<List<BlockData>> {
         return Observable.create { emitter ->
             realm.executeTransactionAsync(
-                {
-                    val data = it.where(BlockDataObject::class.java).equalTo("blockName", value).findAll()
-                    emitter.onNext(dbToModelObject(data))
+                { _realm ->
+                    val query: RealmQuery<BlockDataObject> =
+                        _realm.where(BlockDataObject::class.java)
+                    values.forEach { value ->
+                        query.contains("blockName", value, Case.INSENSITIVE)
+                            .or()
+                            .contains("units.blockName", value, Case.INSENSITIVE)
+                            .or()
+                            .contains("units.activities.activityName", value, Case.INSENSITIVE)
+                            .or()
+                            .contains("units.activities.activityStatus", value, Case.INSENSITIVE)
+                    }
+                    emitter.onNext(dbToModelObject(query.findAll()))
                 },
                 { t: Throwable ->
                     emitter.onError(t)

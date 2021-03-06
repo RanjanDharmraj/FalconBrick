@@ -5,14 +5,13 @@ import android.text.SpannableStringBuilder
 import android.text.method.LinkMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.view.KeyEvent
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.dreamsunited.falconbrick.ui.home.OnKeyEnter
-import com.dreamsunited.falconbrick.ui.home.TabClick
+import com.dreamsunited.falconbrick.utils.helper.OnKeyEnter
+import com.dreamsunited.falconbrick.utils.helper.TabClick
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 

@@ -1,12 +1,14 @@
-package com.dreamsunited.falconbrick.ui.home
+package com.dreamsunited.falconbrick.ui.home.viewmodel
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
 import com.dreamsunited.falconbrick.model.BlockData
 import com.dreamsunited.falconbrick.model.Units
 import com.dreamsunited.falconbrick.repository.Repository
+import com.dreamsunited.falconbrick.utils.helper.OnKeyEnter
+import com.dreamsunited.falconbrick.utils.helper.TabClick
+import com.dreamsunited.falconbrick.ui.home.adapter.FalconUnitAdapter
 import dagger.hilt.android.scopes.ActivityScoped
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
@@ -69,13 +71,14 @@ class FalconViewModel @Inject constructor(
     }
 
     private fun fetchSearchedList(searchedText: String) {
-        repository.getDataOnSearch(searchedText)
+        repository.getDataOnSearch(mutableListOf(searchedText))
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {
                 if(it.isNotEmpty()) {
                     list = it
                     populateTabs(it)
                     toggleView(false)
+                    searchText.value = ""
                 } else {
                     toggleView(true)
                 }

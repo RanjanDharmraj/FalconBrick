@@ -7,11 +7,10 @@
 
         <variable
             name="viewModel"
-            type="com.dreamsunited.falconbrick.ui.home.FalconViewModel" />
+            type="com.dreamsunited.falconbrick.ui.home.viewmodel.FalconViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/app_background"
